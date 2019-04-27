@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import config
 from flask import Flask, request, session, g, redirect, url_for, abort, \
     render_template, flash
 
@@ -9,9 +10,9 @@ app.config.from_object(__name__)
 # Load default config and override config from an environment variable
 app.config.update(dict(
     DATABASE=os.path.join(app.root_path, 'db', 'cards.db'),
-    SECRET_KEY='development key',
-    USERNAME='admin',
-    PASSWORD='default'
+    SECRET_KEY= config.SECRET_KEY,
+    USERNAME= config.USERNAME,
+    PASSWORD= config.PASSWORD
 ))
 app.config.from_envvar('CARDS_SETTINGS', silent=True)
 
@@ -49,10 +50,10 @@ def close_db(error):
 
 # Uncomment and use this to initialize database, then comment it
 #   You can rerun it to pave the database and start over
-# @app.route('/initdb')
-# def initdb():
-#     init_db()
-#     return 'Initialized the database.'
+@app.route('/initdb')
+def initdb():
+    init_db()
+    return 'Initialized the database.'
 
 
 @app.route('/')
