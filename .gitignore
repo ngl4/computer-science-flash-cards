@@ -6,3 +6,4 @@ config-personal.txt
 cards.db
 env
 config.py
+.envrc
